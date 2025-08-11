@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Education | Charanjeet Kumar</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Open+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        /* Education Page Specific Styles */
+        .education-page {
+            padding-top: 100px;
+            min-height: 100vh;
+            background: var(--primary-bg);
+        }
+
+        .education-header {
+            text-align: center;
+            padding: 4rem 0;
+            background: var(--secondary-bg);
+        }
+
+        .education-title {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+        }
+
+        .education-subtitle {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .education-timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 4rem auto;
+            padding: 0 2rem;
+        }
+
+        .education-timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: linear-gradient(180deg, var(--accent-color), var(--accent-hover));
+            transform: translateX(-50%);
+        }
+
+        .education-item {
+            position: relative;
+            margin-bottom: 3rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .education-item:nth-child(odd) {
+            flex-direction: row;
+        }
+
+        .education-item:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+
+        .education-content {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 2rem;
+            width: calc(50% - 2rem);
+            position: relative;
+            border: 1px solid var(--border-color);
+            transition: var(--transition);
+        }
+
+        .education-content::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-color), var(--accent-hover));
+            border-radius: 15px 15px 0 0;
+        }
+
+        .education-content:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+            border-color: var(--accent-color);
+        }
+
+        .education-item:nth-child(odd) .education-content::after {
+            content: '';
+            position: absolute;
+            right: -15px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 0;
+            height: 0;
+            border: 15px solid transparent;
+            border-left-color: var(--card-bg);
+        }
+
+        .education-item:nth-child(even) .education-content::after {
+            content: '';
+            position: absolute;
+            left: -15px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 0;
+            height: 0;
+            border: 15px solid transparent;
+            border-right-color: var(--card-bg);
+        }
+
+        .education-icon {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 60px;
+            background: var(--accent-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-primary);
+            font-size: 1.5rem;
+            z-index: 2;
+            border: 4px solid var(--primary-bg);
+        }
+
+        .education-image {
+            width: 80px;
+            height: 80px;
+            border-radius: 15px;
+            object-fit: cover;
+            margin-bottom: 1rem;
+            border: 3px solid var(--accent-color);
+        }
+
+        .education-degree {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .education-institution {
+            font-size: 1.1rem;
+            color: var(--accent-color);
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .education-year {
+            font-size: 1rem;
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+
+        .education-description {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .education-achievements {
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .achievement-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-secondary);
+        }
+
+        .achievement-item i {
+            color: var(--accent-color);
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .education-title {
+                font-size: 2rem;
+            }
+
+            .education-timeline::before {
+                left: 30px;
+            }
+
+            .education-item {
+                flex-direction: column !important;
+                align-items: flex-start;
+                padding-left: 60px;
+            }
+
+            .education-content {
+                width: 100%;
+                margin-left: 0;
+            }
+
+            .education-content::after {
+                display: none;
+            }
+
+            .education-icon {
+                left: 30px;
+                transform: translateX(-50%);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <span class="logo-text">CK</span>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="index.html" class="nav-link">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="index.html#about" class="nav-link">About</a>
+                </li>
+                <li class="nav-item">
+                    <a href="index.html#skills" class="nav-link">Skills</a>
+                </li>
+                <li class="nav-item">
+                    <a href="Projects.html" class="nav-link">Projects</a>
+                </li>
+                <li class="nav-item">
+                    <a href="Education.html" class="nav-link">Education</a>
+                </li>
+                <li class="nav-item">
+                    <a href="Experience.html" class="nav-link">Experience</a>
+                </li>
+                <li class="nav-item">
+                    <a href="Certifications.html" class="nav-link">Certifications</a>
+                </li>
+                <li class="nav-item">
+                    <a href="blog.html" class="nav-link">Blog</a>
+                </li>
+                <li class="nav-item">
+                    <a href="index.html#contact" class="nav-link">Contact</a>
+                </li>
+                <li class="nav-item">
+                    <a href="https://drive.google.com/file/d/1tIFxaxID1oL_kDO_WXuje7OOH_QMX0LO/view?usp=sharing" class="nav-link resume-btn" target="_blank">Resume</a>
+                </li>
+            </ul>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <div class="education-page">
+        <!-- Header Section -->
+        <div class="education-header">
+            <div class="container">
+                <h1 class="education-title">Education</h1>
+                <p class="education-subtitle">
+                    My academic journey and educational background that shaped my engineering expertise 
+                    and technical knowledge in mechanical engineering and design.
+                </p>
+            </div>
+        </div>
+
+        <!-- Education Timeline -->
+        <div class="education-timeline">
+            <!-- B.Tech -->
+            <div class="education-item">
+                <div class="education-icon">
+                    <i class="fas fa-graduation-cap"></i>
+                </div>
+                <div class="education-content">
+                    <img src="image/college.jpeg" alt="Guru Nanak Dev Engineering College" class="education-image">
+                    <h3 class="education-degree">B.Tech in Mechanical Engineering</h3>
+                    <p class="education-institution">Guru Nanak Dev Engineering College, Ludhiana</p>
+                    <p class="education-year">2021 - 2025</p>
+                    <p class="education-description">
+                        Specialized in mechanical engineering with focus on CAD design, process optimization, 
+                        and automation. Gained hands-on experience in manufacturing processes, materials science, 
+                        and engineering design principles.
+                    </p>
+                    <div class="education-achievements">
+                        <div class="achievement-item">
+                            <i class="fas fa-trophy"></i>
+                            <span>BAJA SAE Team Leader - Technical Calculations</span>
+                        </div>
+                        <div class="achievement-item">
+                            <i class="fas fa-project-diagram"></i>
+                            <span>Major Project: Automated Tire Handler System</span>
+                        </div>
+                        <div class="achievement-item">
+                            <i class="fas fa-tools"></i>
+                            <span>Proficient in CAD Software (Fusion 360, SolidWorks, AutoCAD)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Intermediate -->
+            <div class="education-item">
+                <div class="education-icon">
+                    <i class="fas fa-school"></i>
+                </div>
+                <div class="education-content">
+                    <img src="image/12th school.jpeg" alt="Sen. Sec. Residential School" class="education-image">
+                    <h3 class="education-degree">Intermediate (12th Grade)</h3>
+                    <p class="education-institution">Sen. Sec. Residential School For Meritorious Students, Ludhiana</p>
+                    <p class="education-year">2019 - 2021</p>
+                    <p class="education-description">
+                        Completed intermediate studies with a strong focus on science and mathematics. 
+                        Built a solid foundation in physics, chemistry, and mathematics that prepared 
+                        me for engineering studies.
+                    </p>
+                    <div class="education-achievements">
+                        <div class="achievement-item">
+                            <i class="fas fa-medal"></i>
+                            <span>Merit-based admission to residential school</span>
+                        </div>
+                        <div class="achievement-item">
+                            <i class="fas fa-calculator"></i>
+                            <span>Strong foundation in Mathematics and Physics</span>
+                        </div>
+                        <div class="achievement-item">
+                            <i class="fas fa-flask"></i>
+                            <span>Practical laboratory experience in sciences</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Matriculation -->
+            <div class="education-item">
+                <div class="education-icon">
+                    <i class="fas fa-book"></i>
+                </div>
+                <div class="education-content">
+                    <img src="image/10th school.jpeg" alt="Govt. Sen. Sec. Smart School" class="education-image">
+                    <h3 class="education-degree">Matriculation (10th Grade)</h3>
+                    <p class="education-institution">Govt. Sen. Sec. Smart School, Hambran</p>
+                    <p class="education-year">2018 - 2019</p>
+                    <p class="education-description">
+                        Completed matriculation with a strong academic record. Developed fundamental 
+                        knowledge in core subjects and demonstrated consistent academic excellence 
+                        throughout the program.
+                    </p>
+                    <div class="education-achievements">
+                        <div class="achievement-item">
+                            <i class="fas fa-star"></i>
+                            <span>Strong academic performance</span>
+                        </div>
+                        <div class="achievement-item">
+                            <i class="fas fa-brain"></i>
+                            <span>Foundation in analytical thinking</span>
+                        </div>
+                        <div class="achievement-item">
+                            <i class="fas fa-users"></i>
+                            <span>Active participation in school activities</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 Charanjeet Kumar. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="scripts/script.js"></script>
+    <script>
+        // Education page specific functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            // Intersection Observer for timeline animations
+            const observerOptions = {
+                threshold: 0.2,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+
+            // Observe education items for animation
+            const educationItems = document.querySelectorAll('.education-item');
+            educationItems.forEach((item, index) => {
+                item.style.opacity = '0';
+                item.style.transform = 'translateY(50px)';
+                item.style.transition = `opacity 0.6s ease ${index * 0.2}s, transform 0.6s ease ${index * 0.2}s`;
+                observer.observe(item);
+            });
+
+            // Add hover effects to education content
+            const educationContents = document.querySelectorAll('.education-content');
+            educationContents.forEach(content => {
+                content.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-10px) scale(1.02)';
+                });
+                
+                content.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0) scale(1)';
+                });
+            });
+        });
+    </script>
+</body>
+</html>
+

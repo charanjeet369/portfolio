@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Certifications | Charanjeet Kumar</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Open+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        /* Certifications Page Specific Styles */
+        .certifications-page {
+            padding-top: 100px;
+            min-height: 100vh;
+            background: var(--primary-bg);
+        }
+
+        .certifications-header {
+            text-align: center;
+            padding: 4rem 0;
+            background: var(--secondary-bg);
+        }
+
+        .certifications-title {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+        }
+
+        .certifications-subtitle {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .certifications-controls {
+            background: var(--card-bg);
+            padding: 2rem;
+            margin: 2rem 0;
+            border-radius: 15px;
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .control-group {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .control-group label {
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        .sort-select {
+            background: var(--primary-bg);
+            color: var(--text-primary);
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            padding: 0.5rem 1rem;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .sort-select:focus {
+            outline: none;
+            border-color: var(--accent-color);
+        }
+
+        .search-input {
+            background: var(--primary-bg);
+            color: var(--text-primary);
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            padding: 0.5rem 1rem;
+            font-size: 1rem;
+            width: 300px;
+            transition: var(--transition);
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--accent-color);
+        }
+
+        .search-input::placeholder {
+            color: var(--text-muted);
+        }
+
+        .cert-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            padding: 2rem 0;
+        }
+
+        .cert-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 1.5rem;
+            transition: var(--transition);
+            border: 1px solid var(--border-color);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cert-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-color), var(--accent-hover));
+        }
+
+        .cert-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-hover);
+            border-color: var(--accent-color);
+        }
+
+        .cert-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            transition: var(--transition);
+        }
+
+        .cert-card:hover .cert-image {
+            transform: scale(1.05);
+        }
+
+        .cert-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+            line-height: 1.3;
+        }
+
+        .cert-description {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+            line-height: 1.5;
+        }
+
+        .cert-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .cert-link:hover {
+            color: var(--accent-hover);
+            transform: translateX(5px);
+        }
+
+        .cert-link i {
+            font-size: 0.9rem;
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: var(--text-secondary);
+        }
+
+        .no-results i {
+            font-size: 4rem;
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+        }
+
+        .no-results h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .certifications-title {
+                font-size: 2rem;
+            }
+
+            .certifications-controls {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .search-input {
+                width: 100%;
+                max-width: 300px;
+            }
+
+            .cert-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <span class="logo-text">CK</span>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="index.html" class="nav-link">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="index.html#about" class="nav-link">About</a>
+                </li>
+                <li class="nav-item">
+                    <a href="index.html#skills" class="nav-link">Skills</a>
+                </li>
+                <li class="nav-item">
+                    <a href="Projects.html" class="nav-link">Projects</a>
+                </li>
+                <li class="nav-item">
+                    <a href="Education.html" class="nav-link">Education</a>
+                </li>
+                <li class="nav-item">
+                    <a href="Experience.html" class="nav-link">Experience</a>
+                </li>
+                <li class="nav-item">
+                    <a href="Certifications.html" class="nav-link">Certifications</a>
+                </li>
+                <li class="nav-item">
+                    <a href="blog.html" class="nav-link">Blog</a>
+                <li class="nav-item">
+                    <a href="index.html#contact" class="nav-link">Contact</a>
+                </li>
+                <li class="nav-item">
+                    <a href="https://drive.google.com/file/d/1tIFxaxID1oL_kDO_WXuje7OOH_QMX0LO/view?usp=sharing" class="nav-link resume-btn" target="_blank">Resume</a>
+                </li>
+            </ul>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <div class="certifications-page">
+        <!-- Header Section -->
+        <div class="certifications-header">
+            <div class="container">
+                <h1 class="certifications-title">My Certifications</h1>
+                <p class="certifications-subtitle">
+                    A showcase of my professional development and continuous learning journey in technology, 
+                    data analysis, and modern tools that enhance my engineering expertise.
+                </p>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="container">
+            <!-- Controls Section -->
+            <div class="certifications-controls">
+                <div class="control-group">
+                    <label for="sortOrder">
+                        <i class="fas fa-sort"></i> Sort by:
+                    </label>
+                    <select id="sortOrder" class="sort-select">
+                        <option value="az">Title (A-Z)</option>
+                        <option value="za">Title (Z-A)</option>
+                    </select>
+                </div>
+                <div class="control-group">
+                    <label for="searchInput">
+                        <i class="fas fa-search"></i> Search:
+                    </label>
+                    <input type="text" id="searchInput" class="search-input" placeholder="Search certificates...">
+                </div>
+            </div>
+
+            <!-- Certificates Grid -->
+            <div class="cert-grid" id="certGrid">
+                <div class="cert-card" data-title="Chat GPT for Beginners" data-description="Certified in Chat GPT for beginners" data-provider="Online Course">
+                    <a href="certificates/charanjeet_kumar_2.pdf" target="_blank">
+                        <img class="cert-image" src="image/certificate logo.jpg" alt="Chat GPT for Beginners Certificate">
+                    </a>
+                    <h3 class="cert-title">Chat GPT for Beginners</h3>
+                    <p class="cert-description">Certified in Chat GPT for beginners.</p>
+                    <a href="certificates/charanjeet_kumar_2.pdf" target="_blank" class="cert-link">
+                        <span>View Certificate</span>
+                        <i class="fas fa-external-link-alt"></i>
+                    </a>
+                </div>
+
+                <div class="cert-card" data-title="Python Fundamentals for Beginners" data-description="Certified in Python fundamentals for beginners" data-provider="Online Course">
+                    <a href="certificates/charanjeet_kumar_3.pdf" target="_blank">
+                        <img class="cert-image" src="image/certificate logo.jpg" alt="Python Fundamentals Certificate">
+                    </a>
+                    <h3 class="cert-title">Python Fundamentals for Beginners</h3>
+                    <p class="cert-description">Certified in Python fundamentals for beginners.</p>
+                    <a href="certificates/charanjeet_kumar_3.pdf" target="_blank" class="cert-link">
+                        <span>View Certificate</span>
+                        <i class="fas fa-external-link-alt"></i>
+                    </a>
+                </div>
+
+                <div class="cert-card" data-title="ChatGPT for Coders" data-description="Certified in ChatGPT for coders" data-provider="Online Course">
+                    <a href="certificates/charanjeet_kumar_4.pdf" target="_blank">
+                        <img class="cert-image" src="image/certificate logo.jpg" alt="ChatGPT for Coders Certificate">
+                    </a>
+                    <h3 class="cert-title">ChatGPT for Coders</h3>
+                    <p class="cert-description">Certified in ChatGPT for coders.</p>
+                    <a href="certificates/charanjeet_kumar_4.pdf" target="_blank" class="cert-link">
+                        <span>View Certificate</span>
+                        <i class="fas fa-external-link-alt"></i>
+                    </a>
+                </div>
+
+                <div class="cert-card" data-title="Getting Started with ChatGPT-4" data-description="Certified in getting started with ChatGPT-4" data-provider="Online Course">
+                    <a href="certificates/charanjeet_kumar_5.pdf" target="_blank">
+                        <img class="cert-image" src="image/certificate logo.jpg" alt="ChatGPT-4 Certificate">
+                    </a>
+                    <h3 class="cert-title">Getting Started with ChatGPT-4</h3>
+                    <p class="cert-description">Certified in getting started with ChatGPT-4.</p>
+                    <a href="certificates/charanjeet_kumar_5.pdf" target="_blank" class="cert-link">
+                        <span>View Certificate</span>
+                        <i class="fas fa-external-link-alt"></i>
+                    </a>
+                </div>
+
+                <div class="cert-card" data-title="Getting Started with GitHub Copilot" data-description="Certified in getting started with GitHub Copilot" data-provider="GitHub">
+                    <a href="certificates/charanjeet_kumar_6.pdf" target="_blank">
+                        <img class="cert-image" src="image/certificate logo.jpg" alt="GitHub Copilot Certificate">
+                    </a>
+                    <h3 class="cert-title">Getting Started with GitHub Copilot</h3>
+                    <p class="cert-description">Certified in getting started with GitHub Copilot.</p>
+                    <a href="certificates/charanjeet_kumar_6.pdf" target="_blank" class="cert-link">
+                        <span>View Certificate</span>
+                        <i class="fas fa-external-link-alt"></i>
+                    </a>
+                </div>
+
+                <div class="cert-card" data-title="ChatGPT for Marketing" data-description="Certified in ChatGPT for marketing" data-provider="Online Course">
+                    <a href="certificates/charanjeet_kumar_7.pdf" target="_blank">
+                        <img class="cert-image" src="image/certificate logo.jpg" alt="ChatGPT for Marketing Certificate">
+                    </a>
+                    <h3 class="cert-title">ChatGPT for Marketing</h3>
+                    <p class="cert-description">Certified in ChatGPT for marketing.</p>
+                    <a href="certificates/charanjeet_kumar_7.pdf" target="_blank" class="cert-link">
+                        <span>View Certificate</span>
+                        <i class="fas fa-external-link-alt"></i>
+                    </a>
+                </div>
+
+                <div class="cert-card" data-title="Data Analysis with Excel" data-description="Certified in data analysis with Excel" data-provider="Microsoft">
+                    <a href="certificates/Charanjeet_ kumar_8.pdf" target="_blank">
+                        <img class="cert-image" src="image/certificate logo.jpg" alt="Data Analysis with Excel Certificate">
+                    </a>
+                    <h3 class="cert-title">Data Analysis with Excel</h3>
+                    <p class="cert-description">Certified in data analysis with Excel.</p>
+                    <a href="certificates/Charanjeet_ kumar_8.pdf" target="_blank" class="cert-link">
+                        <span>View Certificate</span>
+                        <i class="fas fa-external-link-alt"></i>
+                    </a>
+                </div>
+
+                <div class="cert-card" data-title="Conditional Formatting in Excel" data-description="Certified in conditional formatting in Excel" data-provider="Microsoft">
+                    <a href="certificates/Charanjeet_ kumar_9.pdf" target="_blank">
+                        <img class="cert-image" src="image/certificate logo.jpg" alt="Conditional Formatting in Excel Certificate">
+                    </a>
+                    <h3 class="cert-title">Conditional Formatting in Excel</h3>
+                    <p class="cert-description">Certified in conditional formatting in Excel.</p>
+                    <a href="certificates/Charanjeet_ kumar_9.pdf" target="_blank" class="cert-link">
+                        <span>View Certificate</span>
+                        <i class="fas fa-external-link-alt"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- No Results Message -->
+            <div class="no-results" id="noResults" style="display: none;">
+                <i class="fas fa-search"></i>
+                <h3>No certificates found</h3>
+                <p>Try adjusting your search terms or sorting options.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 Charanjeet Kumar. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="scripts/script.js"></script>
+    <script>
+        // Certifications page specific functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const sortSelect = document.getElementById('sortOrder');
+            const searchInput = document.getElementById('searchInput');
+            const certGrid = document.getElementById('certGrid');
+            const noResults = document.getElementById('noResults');
+            const certCards = Array.from(document.querySelectorAll('.cert-card'));
+
+            // Sorting functionality
+            function sortCertificates(order) {
+                const sortedCards = [...certCards].sort((a, b) => {
+                    const titleA = a.getAttribute('data-title').toLowerCase();
+                    const titleB = b.getAttribute('data-title').toLowerCase();
+                    
+                    if (order === 'az') {
+                        return titleA.localeCompare(titleB);
+                    } else {
+                        return titleB.localeCompare(titleA);
+                    }
+                });
+
+                // Clear the grid
+                certGrid.innerHTML = '';
+                
+                // Add sorted cards with staggered animation
+                sortedCards.forEach((card, index) => {
+                    setTimeout(() => {
+                        card.style.opacity = '0';
+                        card.style.transform = 'translateY(20px)';
+                        certGrid.appendChild(card);
+                        
+                        setTimeout(() => {
+                            card.style.opacity = '1';
+                            card.style.transform = 'translateY(0)';
+                        }, 50);
+                    }, index * 50);
+                });
+            }
+
+            // Search functionality
+            function searchCertificates(searchTerm) {
+                const filteredCards = certCards.filter(card => {
+                    const title = card.getAttribute('data-title').toLowerCase();
+                    const description = card.getAttribute('data-description').toLowerCase();
+                    const provider = card.getAttribute('data-provider').toLowerCase();
+                    
+                    return title.includes(searchTerm.toLowerCase()) || 
+                           description.includes(searchTerm.toLowerCase()) ||
+                           provider.includes(searchTerm.toLowerCase());
+                });
+
+                // Clear the grid
+                certGrid.innerHTML = '';
+                
+                if (filteredCards.length === 0) {
+                    noResults.style.display = 'block';
+                } else {
+                    noResults.style.display = 'none';
+                    
+                    // Add filtered cards with animation
+                    filteredCards.forEach((card, index) => {
+                        setTimeout(() => {
+                            card.style.opacity = '0';
+                            card.style.transform = 'translateY(20px)';
+                            certGrid.appendChild(card);
+                            
+                            setTimeout(() => {
+                                card.style.opacity = '1';
+                                card.style.transform = 'translateY(0)';
+                            }, 50);
+                        }, index * 50);
+                    });
+                }
+            }
+
+            // Combined filter function
+            function filterAndSort() {
+                const searchTerm = searchInput.value;
+                const sortOrder = sortSelect.value;
+                
+                let filteredCards = certCards;
+                
+                // Apply search filter
+                if (searchTerm) {
+                    filteredCards = certCards.filter(card => {
+                        const title = card.getAttribute('data-title').toLowerCase();
+                        const description = card.getAttribute('data-description').toLowerCase();
+                        const provider = card.getAttribute('data-provider').toLowerCase();
+                        
+                        return title.includes(searchTerm.toLowerCase()) || 
+                               description.includes(searchTerm.toLowerCase()) ||
+                               provider.includes(searchTerm.toLowerCase());
+                    });
+                }
+                
+                // Apply sorting
+                filteredCards.sort((a, b) => {
+                    const titleA = a.getAttribute('data-title').toLowerCase();
+                    const titleB = b.getAttribute('data-title').toLowerCase();
+                    
+                    if (sortOrder === 'az') {
+                        return titleA.localeCompare(titleB);
+                    } else {
+                        return titleB.localeCompare(titleA);
+                    }
+                });
+
+                // Clear the grid
+                certGrid.innerHTML = '';
+                
+                if (filteredCards.length === 0) {
+                    noResults.style.display = 'block';
+                } else {
+                    noResults.style.display = 'none';
+                    
+                    // Add filtered and sorted cards with animation
+                    filteredCards.forEach((card, index) => {
+                        setTimeout(() => {
+                            card.style.opacity = '0';
+                            card.style.transform = 'translateY(20px)';
+                            certGrid.appendChild(card);
+                            
+                            setTimeout(() => {
+                                card.style.opacity = '1';
+                                card.style.transform = 'translateY(0)';
+                            }, 50);
+                        }, index * 50);
+                    });
+                }
+            }
+
+            // Event listeners
+            sortSelect.addEventListener('change', filterAndSort);
+            searchInput.addEventListener('input', filterAndSort);
+
+            // Initialize with default sorting
+            filterAndSort();
+        });
+    </script>
+</body>
+</html>
+

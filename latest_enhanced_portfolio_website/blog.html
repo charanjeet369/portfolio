@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog & Articles | Charanjeet Kumar</title>
+    <meta name="description" content="Read technical articles and insights from Charanjeet Kumar on mechanical engineering, CAD design, automation, and automotive R&D.">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Open+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        .blog-page {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            padding-top: 100px;
+        }
+        
+        .blog-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .blog-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+        
+        .blog-header h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 3rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 1rem;
+        }
+        
+        .blog-header p {
+            font-size: 1.2rem;
+            color: #b0b0b0;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .blog-filters {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+        
+        .filter-btn {
+            padding: 0.75rem 1.5rem;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 25px;
+            background: rgba(255, 255, 255, 0.05);
+            color: #ffffff;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+        
+        .filter-btn:hover,
+        .filter-btn.active {
+            border-color: #4a9eff;
+            background: rgba(74, 158, 255, 0.2);
+            color: #4a9eff;
+        }
+        
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .blog-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .blog-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            border-color: rgba(74, 158, 255, 0.3);
+        }
+        
+        .blog-card-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, #4a9eff 0%, #0066cc 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .blog-card-image i {
+            font-size: 3rem;
+            color: rgba(255, 255, 255, 0.8);
+        }
+        
+        .blog-card-content {
+            padding: 2rem;
+        }
+        
+        .blog-card-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            color: #888;
+        }
+        
+        .blog-card-category {
+            background: rgba(74, 158, 255, 0.2);
+            color: #4a9eff;
+            padding: 0.25rem 0.75rem;
+            border-radius: 15px;
+            font-weight: 500;
+        }
+        
+        .blog-card-date {
+            color: #b0b0b0;
+        }
+        
+        .blog-card h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #ffffff;
+            margin-bottom: 1rem;
+            line-height: 1.3;
+        }
+        
+        .blog-card p {
+            color: #b0b0b0;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+        
+        .blog-card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .read-more-btn {
+            color: #4a9eff;
+            text-decoration: none;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: color 0.3s ease;
+        }
+        
+        .read-more-btn:hover {
+            color: #ffffff;
+        }
+        
+        .blog-tags {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+        
+        .blog-tag {
+            background: rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+            padding: 0.25rem 0.5rem;
+            border-radius: 10px;
+            font-size: 0.8rem;
+        }
+        
+        .no-posts {
+            text-align: center;
+            color: #888;
+            font-size: 1.2rem;
+            margin: 3rem 0;
+        }
+        
+        .coming-soon {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 3rem;
+            margin: 2rem 0;
+        }
+        
+        .coming-soon h2 {
+            font-family: 'Montserrat', sans-serif;
+            color: #ffffff;
+            margin-bottom: 1rem;
+        }
+        
+        .coming-soon p {
+            color: #b0b0b0;
+            margin-bottom: 2rem;
+        }
+        
+        .notify-btn {
+            background: linear-gradient(135deg, #4a9eff 0%, #0066cc 100%);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 25px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .notify-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(74, 158, 255, 0.4);
+        }
+        
+        @media (max-width: 768px) {
+            .blog-page {
+                padding-top: 80px;
+            }
+            
+            .blog-container {
+                padding: 1rem;
+            }
+            
+            .blog-header h1 {
+                font-size: 2rem;
+            }
+            
+            .blog-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            
+            .blog-filters {
+                gap: 0.5rem;
+            }
+            
+            .filter-btn {
+                padding: 0.5rem 1rem;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <span class="logo-text">CK</span>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="index.html" class="nav-link">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="index.html#about" class="nav-link">About</a>
+                </li>
+                <li class="nav-item">
+                    <a href="index.html#skills" class="nav-link">Skills</a>
+                </li>
+                <li class="nav-item">
+                    <a href="Projects.html" class="nav-link">Projects</a>
+                </li>
+                <li class="nav-item">
+                    <a href="Education.html" class="nav-link">Education</a>
+                </li>
+                <li class="nav-item">
+                    <a href="Experience.html" class="nav-link">Experience</a>
+                </li>
+                <li class="nav-item">
+                    <a href="Certifications.html" class="nav-link">Certifications</a>
+                </li>
+                <li class="nav-item">
+                    <a href="blog.html" class="nav-link active">Blog</a>
+                </li>
+                <li class="nav-item">
+                    <a href="contact_form.html" class="nav-link">Contact</a>
+                </li>
+                <li class="nav-item">
+                    <a href="https://drive.google.com/file/d/1tIFxaxID1oL_kDO_WXuje7OOH_QMX0LO/view?usp=sharing" class="nav-link resume-btn" target="_blank">Resume</a>
+                </li>
+            </ul>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Blog Page -->
+    <section class="blog-page">
+        <div class="blog-container">
+            <div class="blog-header">
+                <h1>Blog & Technical Articles</h1>
+                <p>Insights, tutorials, and thoughts on mechanical engineering, CAD design, automation, and the latest trends in automotive R&D.</p>
+            </div>
+            
+            <div class="blog-filters">
+                <a href="#" class="filter-btn active" data-category="all">All Articles</a>
+                <a href="#" class="filter-btn" data-category="engineering">Engineering</a>
+                <a href="#" class="filter-btn" data-category="cad">CAD Design</a>
+                <a href="#" class="filter-btn" data-category="automation">Automation</a>
+                <a href="#" class="filter-btn" data-category="automotive">Automotive</a>
+                <a href="#" class="filter-btn" data-category="tutorials">Tutorials</a>
+            </div>
+            
+            <div class="blog-grid" id="blogGrid">
+                <!-- Sample Blog Posts (Static for now, will be dynamic with backend) -->
+                <article class="blog-card" data-category="engineering">
+                    <div class="blog-card-image">
+                        <i class="fas fa-cogs"></i>
+                    </div>
+                    <div class="blog-card-content">
+                        <div class="blog-card-meta">
+                            <span class="blog-card-category">Engineering</span>
+                            <span class="blog-card-date">Coming Soon</span>
+                        </div>
+                        <h3>Optimizing Manufacturing Processes with Lean Principles</h3>
+                        <p>Exploring how lean manufacturing principles can dramatically improve efficiency and reduce waste in mechanical engineering processes.</p>
+                        <div class="blog-card-footer">
+                            <a href="#" class="read-more-btn">
+                                Read More <i class="fas fa-arrow-right"></i>
+                            </a>
+                            <div class="blog-tags">
+                                <span class="blog-tag">Lean</span>
+                                <span class="blog-tag">Manufacturing</span>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+                
+                <article class="blog-card" data-category="cad">
+                    <div class="blog-card-image">
+                        <i class="fas fa-cube"></i>
+                    </div>
+                    <div class="blog-card-content">
+                        <div class="blog-card-meta">
+                            <span class="blog-card-category">CAD Design</span>
+                            <span class="blog-card-date">Coming Soon</span>
+                        </div>
+                        <h3>Advanced Fusion 360 Techniques for Automotive Components</h3>
+                        <p>A comprehensive guide to using Fusion 360's advanced features for designing complex automotive parts and assemblies.</p>
+                        <div class="blog-card-footer">
+                            <a href="#" class="read-more-btn">
+                                Read More <i class="fas fa-arrow-right"></i>
+                            </a>
+                            <div class="blog-tags">
+                                <span class="blog-tag">Fusion 360</span>
+                                <span class="blog-tag">CAD</span>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+                
+                <article class="blog-card" data-category="automation">
+                    <div class="blog-card-image">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <div class="blog-card-content">
+                        <div class="blog-card-meta">
+                            <span class="blog-card-category">Automation</span>
+                            <span class="blog-card-date">Coming Soon</span>
+                        </div>
+                        <h3>Implementing Industrial Automation: A Step-by-Step Guide</h3>
+                        <p>Learn how to design and implement automation solutions that improve productivity and reduce operational costs.</p>
+                        <div class="blog-card-footer">
+                            <a href="#" class="read-more-btn">
+                                Read More <i class="fas fa-arrow-right"></i>
+                            </a>
+                            <div class="blog-tags">
+                                <span class="blog-tag">Automation</span>
+                                <span class="blog-tag">Industry 4.0</span>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+                
+                <article class="blog-card" data-category="automotive">
+                    <div class="blog-card-image">
+                        <i class="fas fa-car"></i>
+                    </div>
+                    <div class="blog-card-content">
+                        <div class="blog-card-meta">
+                            <span class="blog-card-category">Automotive</span>
+                            <span class="blog-card-date">Coming Soon</span>
+                        </div>
+                        <h3>BAJA SAE: Engineering Challenges and Solutions</h3>
+                        <p>Insights from my experience with BAJA SAE competitions, including design challenges, testing methodologies, and performance optimization.</p>
+                        <div class="blog-card-footer">
+                            <a href="#" class="read-more-btn">
+                                Read More <i class="fas fa-arrow-right"></i>
+                            </a>
+                            <div class="blog-tags">
+                                <span class="blog-tag">BAJA SAE</span>
+                                <span class="blog-tag">Racing</span>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+                
+                <article class="blog-card" data-category="tutorials">
+                    <div class="blog-card-image">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <div class="blog-card-content">
+                        <div class="blog-card-meta">
+                            <span class="blog-card-category">Tutorials</span>
+                            <span class="blog-card-date">Coming Soon</span>
+                        </div>
+                        <h3>Getting Started with SAP PP Module</h3>
+                        <p>A beginner-friendly tutorial on SAP Production Planning module, covering basic concepts and practical applications.</p>
+                        <div class="blog-card-footer">
+                            <a href="#" class="read-more-btn">
+                                Read More <i class="fas fa-arrow-right"></i>
+                            </a>
+                            <div class="blog-tags">
+                                <span class="blog-tag">SAP</span>
+                                <span class="blog-tag">Tutorial</span>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+                
+                <article class="blog-card" data-category="engineering">
+                    <div class="blog-card-image">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="blog-card-content">
+                        <div class="blog-card-meta">
+                            <span class="blog-card-category">Engineering</span>
+                            <span class="blog-card-date">Coming Soon</span>
+                        </div>
+                        <h3>Data-Driven Decision Making in Engineering</h3>
+                        <p>How to leverage data analytics and visualization tools to make informed engineering decisions and optimize processes.</p>
+                        <div class="blog-card-footer">
+                            <a href="#" class="read-more-btn">
+                                Read More <i class="fas fa-arrow-right"></i>
+                            </a>
+                            <div class="blog-tags">
+                                <span class="blog-tag">Data Analytics</span>
+                                <span class="blog-tag">Engineering</span>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </div>
+            
+            <div class="coming-soon">
+                <h2><i class="fas fa-rocket"></i> Content Coming Soon!</h2>
+                <p>I'm currently working on creating high-quality technical articles and tutorials. Stay tuned for in-depth content on mechanical engineering, CAD design, automation, and automotive R&D.</p>
+                <a href="contact_form.html" class="notify-btn">Get Notified When Published</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 Charanjeet Kumar. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="scripts/script.js"></script>
+    <script>
+        // Blog filtering functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            const blogCards = document.querySelectorAll('.blog-card');
+            
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Remove active class from all buttons
+                    filterBtns.forEach(b => b.classList.remove('active'));
+                    
+                    // Add active class to clicked button
+                    this.classList.add('active');
+                    
+                    const category = this.getAttribute('data-category');
+                    
+                    // Filter blog cards
+                    blogCards.forEach(card => {
+                        if (category === 'all' || card.getAttribute('data-category') === category) {
+                            card.style.display = 'block';
+                            card.style.animation = 'fadeIn 0.5s ease';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                });
+            });
+            
+            // Add fade-in animation
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes fadeIn {
+                    from { opacity: 0; transform: translateY(20px); }
+                    to { opacity: 1; transform: translateY(0); }
+                }
+            `;
+            document.head.appendChild(style);
+            
+            // Future: Load blog posts from API
+            // loadBlogPosts();
+        });
+        
+        // Function to load blog posts from backend (for future implementation)
+        async function loadBlogPosts() {
+            try {
+                const response = await fetch('/api/blog/posts');
+                const posts = await response.json();
+                
+                if (posts.length > 0) {
+                    renderBlogPosts(posts);
+                    document.querySelector('.coming-soon').style.display = 'none';
+                }
+            } catch (error) {
+                console.log('Blog posts not available yet:', error);
+            }
+        }
+        
+        function renderBlogPosts(posts) {
+            const blogGrid = document.getElementById('blogGrid');
+            blogGrid.innerHTML = '';
+            
+            posts.forEach(post => {
+                const postElement = createBlogCard(post);
+                blogGrid.appendChild(postElement);
+            });
+        }
+        
+        function createBlogCard(post) {
+            const card = document.createElement('article');
+            card.className = 'blog-card';
+            card.setAttribute('data-category', post.category.toLowerCase());
+            
+            card.innerHTML = `
+                <div class="blog-card-image">
+                    ${post.featured_image ? 
+                        `<img src="${post.featured_image}" alt="${post.title}">` : 
+                        `<i class="fas fa-file-alt"></i>`
+                    }
+                </div>
+                <div class="blog-card-content">
+                    <div class="blog-card-meta">
+                        <span class="blog-card-category">${post.category}</span>
+                        <span class="blog-card-date">${new Date(post.created_at).toLocaleDateString()}</span>
+                    </div>
+                    <h3>${post.title}</h3>
+                    <p>${post.excerpt || post.content.substring(0, 150) + '...'}</p>
+                    <div class="blog-card-footer">
+                        <a href="blog-post.html?slug=${post.slug}" class="read-more-btn">
+                            Read More <i class="fas fa-arrow-right"></i>
+                        </a>
+                        <div class="blog-tags">
+                            ${post.tags.map(tag => `<span class="blog-tag">${tag}</span>`).join('')}
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            return card;
+        }
+    </script>
+</body>
+</html>
+
